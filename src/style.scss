@@ -1,0 +1,77 @@
+$darkBlue: rgb(15 23 42);
+$darkWhite: #cbd5e1;
+$lighterBlue: rgb(30 41 59);
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.topColor {
+    height: 70vh;
+    width: 120vw;
+    transform: translate(-10%, -27%);
+    position: absolute;
+    rotate: 4deg;
+    background-color: $lighterBlue;
+}
+
+.formContainer {
+    background-color: $darkBlue;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .formWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 15px 50px;
+        background-color: $darkWhite;
+        border-radius: 10px;
+        z-index: 10;
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+
+            input, label {
+                width: 300px;
+                font-size: 20px;
+                padding: 15px;
+                border: none;
+                background: none;
+                outline: none;
+                box-shadow: -2px 0 2px -2px $darkBlue;
+            }
+
+            label {
+                cursor: pointer;
+                box-shadow: -2px 0 2px -2px $darkBlue;
+            }
+
+            button {
+                color: $darkWhite;
+                font-size: 20px;
+                padding: 15px;
+                background-color: $darkBlue;
+                border: none;
+                cursor: pointer;
+                width: 100%;
+                border-radius: 10px;
+                transition: background-color .3s ease-in-out;
+                &:hover {
+                    background-color: $lighterBlue;
+                }
+            }
+        }
+
+        p {
+            margin-top: 30px;
+        }
+    }
+}
