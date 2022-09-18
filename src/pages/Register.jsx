@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 const Register = () => {
   return (
     <>
-    <div className="topColor"></div>
     <div className='formContainer'>
         <div className="formWrapper">
             <h1>Lyenx</h1>
@@ -17,7 +16,7 @@ const Register = () => {
                 <input type="password" placeholder="Password" />
                 <button>Register</button>
             </form>
-            <p>Already have an account ? <Link to="/login">Login</Link></p>
+            <p>Already have an account ? <Link className="link" to="/login">Login</Link></p>
         </div>
     </div>
     </>

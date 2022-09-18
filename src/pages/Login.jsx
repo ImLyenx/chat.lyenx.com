@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 const Login = () => {
   return (
     <>
-    <div className="topColor"></div>
     <div className='formContainer'>
         <div className="formWrapper">
             <h1>Lyenx</h1>
@@ -14,7 +13,7 @@ const Login = () => {
                 <input type="password" placeholder="Password" />
                 <button>Login</button>
             </form>
-            <p>Don't have an account ? <Link to="/register">Register</Link></p>
+            <p>Don't have an account ? <Link className="link" to="/register">Register</Link></p>
         </div>
     </div>
     </>
