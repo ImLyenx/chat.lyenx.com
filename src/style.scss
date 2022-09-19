@@ -1,7 +1,11 @@
 $darkBlue: rgb(15 23 42);
 $darkWhite: #cbd5e1;
+$darkerWhite: #889099;
 $lighterBlue: rgb(30 41 59);
 $gray: #334155;
+$darkGray: #293445;
+$darkerGray: #212936;
+$black: #11171f;
 
 body {
     margin: 0;
@@ -107,7 +111,6 @@ body {
             position: relative;
             overflow-y: scroll;
             max-width: fit-content;
-            direction: rtl;
     
             .navbar {
                 display: flex;
@@ -118,7 +121,8 @@ body {
                 font-size: 20px;
                 max-width: 300px;
                 position: relative;
-                direction: ltr;
+                background-color: $darkGray;
+                margin-bottom: 20px;
     
                 .avatar {
                     height: 40px;
@@ -153,7 +157,10 @@ body {
                     padding: 3px;
                     margin: 25px;
                     margin-top: 0;
-                    direction: ltr;
+
+                    &::placeholder {
+                        color: $darkerWhite;
+                    }
                 }
             }
 
@@ -184,6 +191,70 @@ body {
                 }
             }
         }
+
+        .chat {
+            height: 100%;
+            width: calc(100% - 350px);
+            position: relative;
+
+            .inputContainer {
+                position: absolute;
+                display: flex;
+                align-items: center;
+                bottom: 0;
+                width: calc(90vw - 350px);
+
+                .inputBar {
+                    width: 75%;
+                    border-radius: 10px;
+                    background-color: $lighterBlue;
+                    font-size: 20px;
+                    border: none;
+                    outline: none;
+                    padding: 15px 25px;
+                    margin: 30px 40px;
+                    margin-right: 20px;
+
+                    &::placeholder {
+                        color: $darkerWhite;
+                    }
+                }
+
+                .sendContainer {
+                    display: flex;
+
+                    label {
+                        cursor: pointer;
+                        transition: background-color .15s ease-in-out;
+
+                        &:hover > button {
+                            background-color: $darkBlue;
+                        }
+                    }
+                    .sendButton {
+                        cursor: pointer;
+                    }
+                    .fileButton {
+                        pointer-events: none;
+                    }
+
+                    button {
+                        border-radius: 10px;
+                        background-color: $lighterBlue;
+                        font-size: 20px;
+                        border: none;
+                        outline: none;
+                        margin-right: 20px;
+                        padding: 15px 25px;
+                        transition: background-color .15s ease-in-out;
+
+                        &:hover {
+                            background-color: $darkBlue;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -194,11 +265,11 @@ body {
   
   /* Track */
   ::-webkit-scrollbar-track {
-    background-color: transparent; 
+    background-color: $darkGray;
   }
    
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: $darkWhite;
+    background: $black;
     border-radius: 10px; 
   }
