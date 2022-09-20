@@ -124,10 +124,12 @@ body {
                 background-color: $darkGray;
                 margin-bottom: 20px;
     
-                .avatar {
-                    height: 40px;
-                    width: 40px;
-                    background-color: red;
+                .avatarSelf {
+                    min-height: 40px;
+                    min-width: 40px;
+                    max-height: 40px;
+                    max-width: 40px;
+                    object-fit: cover;
                     border-radius: 50%;
                 }
     
@@ -183,9 +185,11 @@ body {
                     }
 
                     .avatar {
-                        height: 70px;
-                        width: 70px;
-                        background-color: red;
+                        min-height: 70px;
+                        min-width: 70px;
+                        max-height: 70px;
+                        max-width: 70px;
+                        object-fit: cover;
                         border-radius: 50%;
                     }
                 }
@@ -233,6 +237,14 @@ body {
                     }
                     .sendButton {
                         cursor: pointer;
+
+                        &:disabled {
+                            cursor: auto;
+
+                            &:hover {
+                                background-color: $lighterBlue;
+                            }
+                        }
                     }
                     .fileButton {
                         pointer-events: none;
@@ -252,6 +264,63 @@ body {
                             background-color: $darkBlue;
                         }
                     }
+                }
+            }
+
+            .messages {
+                display: flex;
+                flex-direction: column;
+                height: calc(100% - 85px);
+                width: 100%;
+                overflow-y: scroll;
+
+                .beginning {
+                    color: $darkerWhite;
+                    margin: 3% 10%;
+                }
+
+                .message {
+                    display: flex;
+                    margin: 15px 25px;
+
+                    .avatar {
+                        min-height: 50px;
+                        min-width: 50px;
+                        max-height: 50px;
+                        max-width: 50px;
+                        object-fit: cover;
+                        border-radius: 50%;
+                    }
+                    .block {
+                        flex-direction: column;
+                        margin-left: 20px;
+
+                        .messageInfo {
+                            display: flex;
+                            align-items: baseline;
+
+                            .author {
+                                font-size: 19px;
+                                cursor: default;
+                            }
+
+                            .timestamp {
+                                margin-left: 10px;
+                                font-size: 13px;
+                                color: $darkerWhite;
+                                cursor: default;
+                            }
+                        }
+
+                        .messageContent {
+                            margin-top: 5px;
+                            font-size: 20px;
+
+                            &:last-child {
+                                margin-bottom: 10px;
+                            }
+                        }
+                    }   
                 }
             }
         }
