@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, storage, db } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -7,8 +7,11 @@ import { doc, setDoc } from "firebase/firestore";
 
 const Register = () => {
   const [err, setErr] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const displayName = e.target[0].value;
     const email = e.target[1].value;
@@ -18,14 +21,11 @@ const Register = () => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
 
-      const storageRef = ref(storage, displayName);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-      uploadTask.on(
-        (error) => {
-          setErr(true);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+      const date = new Date().getTime();
+      const storageRef = ref(storage, `${displayName + date}`);
+      await uploadBytesResumable(storageRef, file).then(() => {
+        getDownloadURL(storageRef).then(async (downloadURL) => {
+          try {
             await updateProfile(res.user, {
               displayName,
               photoURL: downloadURL,
@@ -36,11 +36,19 @@ const Register = () => {
               email,
               photoURL: downloadURL,
             });
-          });
-        }
-      );
+            await setDoc(doc(db, "userChats", res.user.uid), {});
+            navigate("/");
+          } catch (err) {
+            console.log(err);
+            setErr(true);
+            setLoading(false);
+          }
+        });
+      });
     } catch (err) {
+      console.log(err);
       setErr(true);
+      setLoading(false);
     }
   };
 
@@ -53,10 +61,11 @@ const Register = () => {
           <form onSubmit={handleSubmit}>
             <input type="text" placeholder="Display name" />
             <input type="email" placeholder="E-mail adress" />
-            <input type="password" placeholder="Password" />
+            <input type="password" placeholder="Password (6 characters min.)" />
             <input type="file" id="fileInput" style={{ display: "none" }} />
             <label htmlFor="fileInput">Choose a profile picture</label>
-            <button>Register</button>
+            <button disabled={loading}>Register</button>
+            {loading && <span className="error">Loading...</span>}
             {err && <span className="error">Something went wrong...</span>}
           </form>
           <p>
